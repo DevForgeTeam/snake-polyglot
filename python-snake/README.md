@@ -22,6 +22,7 @@ A classic Snake game implemented in Python using the `pygame` library. This proj
 To start the game, run the following command from the `python-snake` directory:
 
    ```bash
+   cd .\python-snake\  
    python main.py
    ```
 
