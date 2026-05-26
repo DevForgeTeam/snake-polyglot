@@ -3,6 +3,7 @@ import sys
 from game.settings import *
 from game.game import SnakeGame
 
+
 def main():
     pygame.init()
     screen = pygame.display.set_mode((WINDOW_SIZE, WINDOW_SIZE))
@@ -38,13 +39,15 @@ def main():
         screen.fill(COLOR_BG)
 
         # This will Draw Food
-        food_rect = pygame.Rect(game.food[0] * CELL_SIZE, game.food[1] * CELL_SIZE, CELL_SIZE, CELL_SIZE)
+        food_rect = pygame.Rect(
+            game.food[0] * CELL_SIZE, game.food[1] * CELL_SIZE, CELL_SIZE, CELL_SIZE)
         pygame.draw.rect(screen, COLOR_FOOD, food_rect)
 
         # Draw Snake
         for i, segment in enumerate(game.snake):
             color = COLOR_HEAD if i == 0 else COLOR_SNAKE
-            rect = pygame.Rect(segment[0] * CELL_SIZE, segment[1] * CELL_SIZE, CELL_SIZE, CELL_SIZE)
+            rect = pygame.Rect(
+                segment[0] * CELL_SIZE, segment[1] * CELL_SIZE, CELL_SIZE, CELL_SIZE)
             pygame.draw.rect(screen, color, rect)
 
         # This will Show Score
@@ -52,12 +55,15 @@ def main():
         screen.blit(score_text, (10, 10))
 
         if game.game_over:
-            go_text = font.render("Game Over! Press SPACE to restart.", True, COLOR_TEXT)
-            go_rect = go_text.get_rect(center=(WINDOW_SIZE // 2, WINDOW_SIZE // 2))
+            go_text = font.render(
+                "Game Over! Press SPACE to restart.", True, COLOR_TEXT)
+            go_rect = go_text.get_rect(
+                center=(WINDOW_SIZE // 2, WINDOW_SIZE // 2))
             screen.blit(go_text, go_rect)
 
         pygame.display.flip()
         clock.tick(FPS)
+
 
 if __name__ == "__main__":
     main()
