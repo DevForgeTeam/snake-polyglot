@@ -26,6 +26,12 @@ To start the game, run the following command from the `python-snake` directory:
    python main.py
    ```
 
+## Screenshots
+
+![Menu](screenshots/menu.png)
+
+![Game](screenshots/Game.png)
+
 ## Game Controls
 
 - **Move Up:** `W` or `Up Arrow`
