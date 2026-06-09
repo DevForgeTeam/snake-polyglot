@@ -11,12 +11,13 @@ end
 
 function Draw.snake(coords, bodyColor, headColor, offset, cellSize)
     love.graphics.setColor(headColor)
-    love.graphics.rectangle("fill", offset+(coords[1].x * cellSize), offset+(coords[1].y * cellSize), cellSize-1, cellSize-1)
+    love.graphics.rectangle("fill", offset+(coords[1].x * cellSize), offset+(coords[1].y * cellSize), cellSize-2, cellSize-2)
+
 
     love.graphics.setColor(bodyColor)
     for i, position in ipairs(coords) do
         if i ~= 1 then
-            love.graphics.rectangle("fill", offset+(position.x * cellSize), offset+(position.y * cellSize), cellSize-1, cellSize-1)
+            love.graphics.rectangle("fill", offset+(position.x * cellSize), offset+(position.y * cellSize), cellSize-2, cellSize-2)
         end
     end
 end
