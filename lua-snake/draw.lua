@@ -1,23 +1,35 @@
 local Draw = {}
 
-function Draw.playableArea(width, height, offset,color)
-    love.graphics.setColor(color)
-    love.graphics.rectangle("fill", offset,offset,width,height)
+function Draw.playableArea()
+
+    local o = GAME.AREA.OFFSET
+    local w = GAME.AREA.WIDTH
+    local h = GAME.AREA.HEIGHT
+
+
+    love.graphics.setColor(GAME.AREA_COLOR)
+    love.graphics.rectangle("fill", o, o, w, h)
     love.graphics.setColor(1,1,1)
     love.graphics.setLineWidth(4)
-    -- Love2D draws lines centered on the coordinates. A 4-pixel wide border will extend 2 pixels inside and 2 pixels outside your specified dimensions.
-    love.graphics.rectangle("line", offset-2,offset-2,width+2,height+2)
+    -- Love2D draws lines centered on the coordinates
+    -- A 4-pixel wide border will extend 2 pixels inside and outside your specified dimensions.
+    love.graphics.rectangle("line", o-2, o-2, w+2, h+2)
 end
 
-function Draw.snake(coords, bodyColor, headColor, offset, cellSize)
-    love.graphics.setColor(headColor)
-    love.graphics.rectangle("fill", offset+(coords[1].x * cellSize), offset+(coords[1].y * cellSize), cellSize-2, cellSize-2)
+function Draw.snake()
+    local o = GAME.AREA.OFFSET
+    local s = GAME.CELLSIZE
+
+    -- create head a different color
+    love.graphics.setColor(SNAKE.HEAD_COLOR)
+    -- cellsize - 2 = creates gap between segments
+    love.graphics.rectangle("fill", o+(SNAKE.COORDS[1].x * s), o+(SNAKE.COORDS[1].y * s), s-2, s-2)
 
 
-    love.graphics.setColor(bodyColor)
-    for i, position in ipairs(coords) do
+    love.graphics.setColor(SNAKE.BODY_COLOR)
+    for i, position in ipairs(SNAKE.COORDS) do
         if i ~= 1 then
-            love.graphics.rectangle("fill", offset+(position.x * cellSize), offset+(position.y * cellSize), cellSize-2, cellSize-2)
+            love.graphics.rectangle("fill", o+(position.x * s), o+(position.y * s), s-2, s-2)
         end
     end
 end
