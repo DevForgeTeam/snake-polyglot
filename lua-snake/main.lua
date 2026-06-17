@@ -5,11 +5,13 @@ local game = require("game")
 
 function love.load()
     love.window.setMode(800,600, {vsync=1})
+    game.spawn_food()
 end
 
 function love.draw()
     draw.playableArea()
     draw.snake()
+    draw.food()
 end
 
 function love.update(dt)

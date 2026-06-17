@@ -2,6 +2,9 @@ local Game = {}
 
 require("globals") -- ensures the variables in this file are init. upon game start
 local snake = require("snake")
+local draw = require("draw")
+
+local food_spawned = false
 
 function Game.bounds_touched(coords)
     local head = coords
@@ -50,6 +53,31 @@ function Game.tick(dt)
         else
             snake.move_snake(new_snakehead_coords)
         end
+    end
+end
+
+
+function Game.spawn_food()
+    if not food_spawned then
+
+        FOOD.POSITION = {
+            x = love.math.random(0, math.floor((GAME.AREA.WIDTH/GAME.CELLSIZE)-1)),
+            y = love.math.random(0, math.floor((GAME.AREA.HEIGHT/GAME.CELLSIZE)-1)),
+        }
+
+        -- Confirmed apple spawns right next to walls
+        -- FOOD.POSITION = {
+        --     x = (GAME.AREA.WIDTH/GAME.CELLSIZE)-1,
+        --     y = (GAME.AREA.HEIGHT/GAME.CELLSIZE)-1
+        -- }
+
+        -- FOOD.POSITION = {x=0,y=19}
+
+        food_spawned = true
+        print("food spawned!")
+        print(FOOD.POSITION.x .. ", " .. FOOD.POSITION.y)
+    else
+        return
     end
 end
 

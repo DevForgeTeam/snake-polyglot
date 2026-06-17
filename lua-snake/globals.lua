@@ -33,3 +33,7 @@ SNAKE =
 }
 
 INPUT_DIRECTION = "right"
+FOOD = {
+    POSITION = {x = 0, y = 0},
+    COLOR = {1, 0, 0},
+}

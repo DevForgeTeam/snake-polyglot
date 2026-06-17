@@ -34,4 +34,12 @@ function Draw.snake()
     end
 end
 
+function Draw.food()
+    local o = GAME.AREA.OFFSET
+    local s = GAME.CELLSIZE
+
+    love.graphics.setColor(FOOD.COLOR)
+    love.graphics.rectangle("fill", o+(FOOD.POSITION.x * s), o+(FOOD.POSITION.y*s), s-2, s-2)
+end
+
 return Draw
