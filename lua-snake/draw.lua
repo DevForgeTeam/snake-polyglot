@@ -42,4 +42,18 @@ function Draw.food()
     love.graphics.rectangle("fill", o+(FOOD.POSITION.x * s), o+(FOOD.POSITION.y*s), s-2, s-2)
 end
 
+function Draw.game_over_screen()
+        -- Draw Game Over background (darken the screen)
+        love.graphics.setColor(0, 0, 0, 0.7)
+        love.graphics.rectangle('fill', 0, 0, love.graphics.getDimensions())
+
+        -- Draw Game Over Text
+        love.graphics.setColor(1, 1, 1, 1)
+        love.graphics.setFont(love.graphics.newFont(30))
+        love.graphics.printf("GAME OVER", 0, 100, love.graphics.getWidth(), 'center')
+        love.graphics.printf("Press 'Enter' to Restart", 0, 200, love.graphics.getWidth(), 'center')
+        love.graphics.printf("Score: "..GAME.SCORE, 0, 300, love.graphics.getWidth(), 'center')
+
+end
+
 return Draw
