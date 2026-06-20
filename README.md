@@ -2,7 +2,7 @@
 
 ---
 Hello Team!
-“Please do not rush; I recommend doing it slowly. Everyone should learn step by step 🙂 Thank you very much.”
+“Please do not rush; I recommend doing it slowly. Everyone should learn step by step  Thank you very much.”
 
 First, read the architecture.md file. The rules are fixed. Once the Python reference implementation is complete, it will be ported one-to-one into other languages.
 ---
