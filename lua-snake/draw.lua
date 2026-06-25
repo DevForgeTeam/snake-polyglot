@@ -53,7 +53,12 @@ function Draw.game_over_screen()
         love.graphics.printf("GAME OVER", 0, 100, love.graphics.getWidth(), 'center')
         love.graphics.printf("Press 'Enter' to Restart", 0, 200, love.graphics.getWidth(), 'center')
         love.graphics.printf("Score: "..GAME.SCORE, 0, 300, love.graphics.getWidth(), 'center')
+end
 
+function Draw.displayScore()
+    love.graphics.setColor(1,1,1,1)
+    love.graphics.setFont(love.graphics.newFont(30))
+    love.graphics.print("Score: ".. GAME.SCORE, 50, 10)
 end
 
 return Draw

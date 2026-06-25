@@ -27,7 +27,8 @@ function Snake.get_new_head_coord()
     end
 end
 
-function Snake.increment_head(new_snakehead_coord)
+-- Move snake 
+function Snake.move(new_snakehead_coord)
     table.insert(SNAKE.COORDS, 1, new_snakehead_coord)
     SNAKE.LOOKUP[util.generate_lookup_key(new_snakehead_coord)] = new_snakehead_coord
 end
@@ -37,8 +38,8 @@ function Snake.decrement_tail()
     -- [#SNAKE.COORDS] returns last element of table
     local key = util.generate_lookup_key(SNAKE.COORDS[#SNAKE.COORDS])
     SNAKE.LOOKUP[key] = nil
-    for k,v in pairs(SNAKE.LOOKUP) do print("key: " ..k, "value: " ..v.x..","..v.y) end
-    print("---------------------------------------")
+    -- for k,v in pairs(SNAKE.LOOKUP) do print("key: " ..k, "value: " ..v.x..","..v.y) end
+    -- print("---------------------------------------")
     table.remove(SNAKE.COORDS)
 end
 

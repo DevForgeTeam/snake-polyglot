@@ -59,16 +59,10 @@ function Game.bounds_touched(coords)
     elseif (intersected_left) then return "left"
     elseif (intersected_top) then return "up"
     elseif (intersected_bottom) then return "down"
-    else return nil end
+    else return nil end -- means didn't touch anything
 end
 
 function Game.snake_touched(new_head)
-    if SNAKE.LOOKUP[util.generate_lookup_key(new_head)] ~= nil then
-        print("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
-        print("snake touched!")
-        print("x: " .. new_head.x .. ", y: ".. new_head.y)
-        print("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
-    end
     return SNAKE.LOOKUP[util.generate_lookup_key(new_head)] ~= nil
 end
 
@@ -158,18 +152,22 @@ function Game.tick(dt)
         if Game.bounds_touched(new_snakehead_coords) or Game.snake_touched(new_snakehead_coords) then
             -- Game.restart_game()
             GAME.PLAYING = false
+            print("Walls touched "..tostring(Game.bounds_touched(new_snakehead_coords)))
+            print("Snake touched "..tostring(Game.snake_touched(new_snakehead_coords)))
+            print("Head coords "..tostring(new_snakehead_coords.x)..","..tostring(new_snakehead_coords.y))
+
         -- elseif Game.snake_touched(new_snakehead_coords) then
             -- print("touched!")
         end
 
-        snake.increment_head(new_snakehead_coords)
+        snake.move(new_snakehead_coords)
 
         if Game.food_touched() then
             GAME.SCORE = GAME.SCORE + 1
-            if GAME.TICK_TIME >= 0.15 then
-                GAME.TICK_TIME = GAME.TICK_TIME-0.05
-            -- elseif GAME.TICK_TIME < 0.15 and GAME.TICK_TIME >= 0.08 then
-                -- GAME.TICK_TIME = GAME.TICK_TIME-0.01
+            if GAME.SCORE % 5 == 0 then
+                if GAME.TICK_TIME >= 0.15 then
+                    GAME.TICK_TIME = GAME.TICK_TIME-0.05
+                end
             end
             Game.spawn_food()
         else

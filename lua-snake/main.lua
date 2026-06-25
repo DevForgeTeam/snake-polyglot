@@ -4,7 +4,7 @@ local draw = require("draw")
 local game = require("game")
 
 function love.load()
-    love.window.setMode(400,400, {vsync=1})
+    love.window.setMode(740,740, {vsync=1})
     game.spawn_food()
 end
 
@@ -12,6 +12,7 @@ function love.draw()
     draw.playableArea()
     draw.snake()
     draw.food()
+    draw.displayScore()
 
     if not GAME.PLAYING then draw.game_over_screen() end
 end
