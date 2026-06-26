@@ -2,10 +2,7 @@
 
 ## Preview
 
-<video width="100%" autoplay loop muted playsinline>
-  <source src="./ayyoo.webm" type="video/webm">
-  Your browser does not support the video tag.
-</video>
+https://github.com/user-attachments/assets/c0b1cdd1-4088-43f6-b9f8-dd6f962f1135
 
 ## Running Code
 
