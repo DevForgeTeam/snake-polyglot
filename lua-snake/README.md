@@ -1,17 +1,52 @@
-# Lua Snake
+# Snake Implementation (Lua + Love2D)
 
-## Preview
+A classic Snake game implemented in **Lua using the Love2D engine**.  
+This project is part of the Snake Polyglot showcase, which demonstrates how to build the same game in various programming languages following a shared set of rules.
 
-https://github.com/user-attachments/assets/c0b1cdd1-4088-43f6-b9f8-dd6f962f1135
+---
 
-## Running Code
+## 🎮 Dependencies
 
-**From VS Code**
-- Install Love2D Support [extension](https://marketplace.visualstudio.com/items?itemName=pixelbyte-studios.pixelbyte-love2d) 
-- Press `alt-l` (default)
-    - If using this projects `vscode/settings.json` file then press `alt-q` to run
+- Love2D (11.x or newer)
 
-**Without VS Code**
-- Install [Love2D](http://love2d.org/#download)
-- Drag the project folder onto either love.exe or a shortcut to love.exe
-  - Or launch game from CLI, ex: `"C:\Program Files\LOVE\love.exe" "C:\games\the_game_project_folder"`
+Download: https://love2d.org/
+
+---
+
+## ⚙️ Setup and Installation
+
+Ensure Love2D is installed on your system.
+
+No additional dependencies are required.
+
+---
+
+## ▶️ Running the Game
+
+Open your terminal and navigate to the `lua-snake` directory:
+
+cd lua-snake
+love .
+
+---
+
+## Screenshot
+
+![alt text](snake_love.png)
+
+---
+
+## 🎮 Game Controls
+
+- Move Up: W / Up Arrow  
+- Move Down: S / Down Arrow  
+- Move Left: A / Left Arrow  
+- Move Right: D / Left Arrow  
+- Restart: SPACE (if game over)
+
+---
+
+## Notes
+
+- Love2D must be installed, but does NOT need to be in PATH if launched via GUI or `love .`
+- Project entry point: `main.lua`
