@@ -5,7 +5,7 @@ This project is part of the Snake Polyglot showcase, which demonstrates how to b
 
 ---
 
-## 🎮 Dependencies
+##  Dependencies
 
 - Love2D (11.x or newer)
 
@@ -13,7 +13,7 @@ Download: https://love2d.org/
 
 ---
 
-## ⚙️ Setup and Installation
+##  Setup and Installation
 
 Ensure Love2D is installed on your system.
 
@@ -21,7 +21,7 @@ No additional dependencies are required.
 
 ---
 
-## ▶️ Running the Game
+## Running the Game
 
 Open your terminal and navigate to the `lua-snake` directory:
 
@@ -36,7 +36,7 @@ love .
 
 ---
 
-## 🎮 Game Controls
+## Game Controls
 
 - Move Up: W / Up Arrow  
 - Move Down: S / Down Arrow  
