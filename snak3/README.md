@@ -22,3 +22,5 @@ uv run main.py
 - Arrow Keys or WASD: movement
 - Space / Enter: restart after game over
 - Esc: exit
+
+![Preview](screenshot/snak3.png)
