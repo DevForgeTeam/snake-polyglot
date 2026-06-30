@@ -229,6 +229,8 @@ class SnakeGame:
         )
 
     def _draw_hud(self) -> None:
+        title = self.font.render(f"Score {self.score}", True, (242, 245, 248))
+        self.screen.blit(title, (18, 10))
         if self.game_over:
             hud_rect = pygame.Rect(0, 0, self.width, 72)
             pygame.draw.rect(self.screen, (12, 15, 19), hud_rect)
