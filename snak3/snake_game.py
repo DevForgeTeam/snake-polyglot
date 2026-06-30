@@ -28,7 +28,7 @@ class SnakeGame:
         self.audio.initialize()
 
         self.width = self.columns * self.cell_size
-        self.height = self.rows * self.cell_size + 72
+        self.height = self.rows * self.cell_size
         self.screen = pygame.display.set_mode((self.width, self.height))
         pygame.display.set_caption("snak3")
         self.clock = pygame.time.Clock()
@@ -199,14 +199,14 @@ class SnakeGame:
         pygame.draw.circle(self.screen, (255, 219, 112), (int(center.x), int(center.y)), radius)
 
     def _draw_hud(self) -> None:
-        hud_rect = pygame.Rect(0, self.rows * self.cell_size, self.width, 72)
+        hud_rect = pygame.Rect(0, 0, self.width, 72)
         pygame.draw.rect(self.screen, (12, 15, 19), hud_rect)
         title = self.font.render(f"Score {self.score}", True, (242, 245, 248))
         best = self.small_font.render(f"Best {self.high_score}", True, (157, 171, 186))
         hint = self.small_font.render("Arrows/WASD to move  Space/Enter to restart  Esc to quit", True, (157, 171, 186))
-        self.screen.blit(title, (18, self.rows * self.cell_size + 10))
-        self.screen.blit(best, (18, self.rows * self.cell_size + 40))
-        self.screen.blit(hint, (180, self.rows * self.cell_size + 26))
+        self.screen.blit(title, (18, 10))
+        self.screen.blit(best, (18, 42))
+        self.screen.blit(hint, (180, 26))
 
         if self.game_over:
             overlay = pygame.Surface((self.width, self.rows * self.cell_size), pygame.SRCALPHA)
