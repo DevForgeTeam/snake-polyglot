@@ -84,18 +84,19 @@ class SnakeGame:
             if event.type == pygame.QUIT:
                 self.running = False
             elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    self.running = False
-                elif event.key in (pygame.K_UP, pygame.K_w):
-                    self._queue_direction(pygame.Vector2(0, -1))
-                elif event.key in (pygame.K_DOWN, pygame.K_s):
-                    self._queue_direction(pygame.Vector2(0, 1))
-                elif event.key in (pygame.K_LEFT, pygame.K_a):
-                    self._queue_direction(pygame.Vector2(-1, 0))
-                elif event.key in (pygame.K_RIGHT, pygame.K_d):
-                    self._queue_direction(pygame.Vector2(1, 0))
-                elif event.key in (pygame.K_SPACE, pygame.K_RETURN) and self.game_over:
-                    self.reset()
+                match event.key:
+                    case pygame.K_ESCAPE:
+                        self.running = False
+                    case pygame.K_UP | pygame.K_w:
+                        self._queue_direction(pygame.Vector2(0, -1))
+                    case pygame.K_DOWN | pygame.K_s:
+                        self._queue_direction(pygame.Vector2(0, 1))
+                    case pygame.K_LEFT | pygame.K_a:
+                        self._queue_direction(pygame.Vector2(-1, 0))
+                    case pygame.K_RIGHT | pygame.K_d:
+                        self._queue_direction(pygame.Vector2(1, 0))
+                    case pygame.K_SPACE | pygame.K_RETURN if self.game_over:
+                        self.reset()
 
     def _queue_direction(self, direction: pygame.Vector2) -> None:
         if direction == -self.direction:
