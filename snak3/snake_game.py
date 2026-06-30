@@ -17,8 +17,8 @@ class Food:
 
 
 class SnakeGame:
-    grid_size = 24
-    columns = 26
+    cell_size = 32
+    columns = 20
     rows = 20
     step_seconds = 0.12
 
@@ -27,8 +27,8 @@ class SnakeGame:
         self.audio = AudioEngine()
         self.audio.initialize()
 
-        self.width = self.columns * self.grid_size
-        self.height = self.rows * self.grid_size + 72
+        self.width = self.columns * self.cell_size
+        self.height = self.rows * self.cell_size + 72
         self.screen = pygame.display.set_mode((self.width, self.height))
         pygame.display.set_caption("snak3")
         self.clock = pygame.time.Clock()
@@ -164,58 +164,58 @@ class SnakeGame:
         self.screen.blit(overlay, (0, 0))
 
     def _draw_board(self) -> None:
-        board = pygame.Rect(0, 0, self.width, self.rows * self.grid_size)
+        board = pygame.Rect(0, 0, self.width, self.rows * self.cell_size)
         pygame.draw.rect(self.screen, (22, 28, 38), board)
         grid_color = (30, 39, 50)
         for column in range(self.columns + 1):
-            x = column * self.grid_size
+            x = column * self.cell_size
             pygame.draw.line(self.screen, grid_color, (x, 0), (x, board.height), 1)
         for row in range(self.rows + 1):
-            y = row * self.grid_size
+            y = row * self.cell_size
             pygame.draw.line(self.screen, grid_color, (0, y), (self.width, y), 1)
 
     def _draw_snake(self) -> None:
         for index, segment in enumerate(self.snake):
             rect = pygame.Rect(
-                segment.x * self.grid_size + 2,
-                segment.y * self.grid_size + 2,
-                self.grid_size - 4,
-                self.grid_size - 4,
+                segment.x * self.cell_size + 2,
+                segment.y * self.cell_size + 2,
+                self.cell_size - 4,
+                self.cell_size - 4,
             )
             color = (125, 229, 143) if index == 0 else (84, 184, 110)
             pygame.draw.rect(self.screen, color, rect, border_radius=6)
             if index == 0:
-                glow = pygame.Surface((self.grid_size + 10, self.grid_size + 10), pygame.SRCALPHA)
-                pygame.draw.circle(glow, (170, 255, 185, 60), (glow.get_width() // 2, glow.get_height() // 2), self.grid_size // 2 + 2)
-                self.screen.blit(glow, (segment.x * self.grid_size - 3, segment.y * self.grid_size - 3))
+                glow = pygame.Surface((self.cell_size + 10, self.cell_size + 10), pygame.SRCALPHA)
+                pygame.draw.circle(glow, (170, 255, 185, 60), (glow.get_width() // 2, glow.get_height() // 2), self.cell_size // 2 + 2)
+                self.screen.blit(glow, (segment.x * self.cell_size - 3, segment.y * self.cell_size - 3))
 
     def _draw_food(self) -> None:
         center = self._grid_to_center(self.food.grid)
         pulse = 1.0 + 0.08 * (1.0 + math.sin(self.food.pulse * 8.0))
-        radius = int(self.grid_size * 0.34 * pulse)
+        radius = int(self.cell_size * 0.34 * pulse)
         glow = pygame.Surface((radius * 4, radius * 4), pygame.SRCALPHA)
         pygame.draw.circle(glow, (255, 188, 74, 90), (radius * 2, radius * 2), radius * 2)
         self.screen.blit(glow, (center.x - radius * 2, center.y - radius * 2))
         pygame.draw.circle(self.screen, (255, 219, 112), (int(center.x), int(center.y)), radius)
 
     def _draw_hud(self) -> None:
-        hud_rect = pygame.Rect(0, self.rows * self.grid_size, self.width, 72)
+        hud_rect = pygame.Rect(0, self.rows * self.cell_size, self.width, 72)
         pygame.draw.rect(self.screen, (12, 15, 19), hud_rect)
         title = self.font.render(f"Score {self.score}", True, (242, 245, 248))
         best = self.small_font.render(f"Best {self.high_score}", True, (157, 171, 186))
         hint = self.small_font.render("Arrows/WASD to move  Space/Enter to restart  Esc to quit", True, (157, 171, 186))
-        self.screen.blit(title, (18, self.rows * self.grid_size + 10))
-        self.screen.blit(best, (18, self.rows * self.grid_size + 40))
-        self.screen.blit(hint, (180, self.rows * self.grid_size + 26))
+        self.screen.blit(title, (18, self.rows * self.cell_size + 10))
+        self.screen.blit(best, (18, self.rows * self.cell_size + 40))
+        self.screen.blit(hint, (180, self.rows * self.cell_size + 26))
 
         if self.game_over:
-            overlay = pygame.Surface((self.width, self.rows * self.grid_size), pygame.SRCALPHA)
+            overlay = pygame.Surface((self.width, self.rows * self.cell_size), pygame.SRCALPHA)
             overlay.fill((8, 10, 14, 150))
             self.screen.blit(overlay, (0, 0))
             text = self.font.render("Game Over", True, (255, 245, 235))
             retry = self.small_font.render("Press Space or Enter to restart", True, (255, 220, 190))
-            self.screen.blit(text, text.get_rect(center=(self.width / 2, self.rows * self.grid_size / 2 - 10)))
-            self.screen.blit(retry, retry.get_rect(center=(self.width / 2, self.rows * self.grid_size / 2 + 22)))
+            self.screen.blit(text, text.get_rect(center=(self.width / 2, self.rows * self.cell_size / 2 - 10)))
+            self.screen.blit(retry, retry.get_rect(center=(self.width / 2, self.rows * self.cell_size / 2 + 22)))
 
     def _spawn_food(self) -> pygame.Vector2:
         available = [
@@ -230,8 +230,8 @@ class SnakeGame:
 
     def _grid_to_center(self, grid: pygame.Vector2) -> pygame.Vector2:
         return pygame.Vector2(
-            grid.x * self.grid_size + self.grid_size / 2,
-            grid.y * self.grid_size + self.grid_size / 2,
+            grid.x * self.cell_size + self.cell_size / 2,
+            grid.y * self.cell_size + self.cell_size / 2,
         )
 
     def _in_bounds(self, grid: pygame.Vector2) -> bool:
