@@ -20,7 +20,6 @@ class SnakeGame:
     cell_size = 32
     columns = 20
     rows = 20
-    step_seconds = 0.12
 
     def __init__(self) -> None:
         pygame.init()
@@ -116,7 +115,8 @@ class SnakeGame:
 
         if self.game_over:
             return
-
+        self.current_speed = 10 + (self.score // 5) * 2
+        self.step_seconds: float = 1.0 / self.current_speed
         self.accumulator += dt
         while self.accumulator >= self.step_seconds:
             self.accumulator -= self.step_seconds
@@ -235,7 +235,9 @@ class SnakeGame:
             hud_rect = pygame.Rect(0, 0, self.width, 72)
             pygame.draw.rect(self.screen, (12, 15, 19), hud_rect)
             title = self.font.render(f"Score {self.score}", True, (242, 245, 248))
-            best = self.small_font.render(f"Best {self.high_score}", True, (157, 171, 186))
+            best = self.small_font.render(
+                f"Best {self.high_score}", True, (157, 171, 186)
+            )
             hint = self.small_font.render(
                 "Arrows/WASD to move  Space/Enter to restart  Esc to quit",
                 True,
