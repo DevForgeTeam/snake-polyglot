@@ -47,14 +47,20 @@ class SnakeGame:
         self.effects = ParticleBurst()
         self.food = Food(pygame.Vector2(0, 0))
         self.background_particles = [
-            pygame.Vector2(random.uniform(0, self.width), random.uniform(0, self.height))
+            pygame.Vector2(
+                random.uniform(0, self.width), random.uniform(0, self.height)
+            )
             for _ in range(28)
         ]
         self.reset(play_sound=False)
 
     def reset(self, play_sound: bool = True) -> None:
         center = pygame.Vector2(self.columns // 2, self.rows // 2)
-        self.snake = [center.copy(), center - pygame.Vector2(1, 0), center - pygame.Vector2(2, 0)]
+        self.snake = [
+            center.copy(),
+            center - pygame.Vector2(1, 0),
+            center - pygame.Vector2(2, 0),
+        ]
         self.direction = pygame.Vector2(1, 0)
         self.next_direction = pygame.Vector2(1, 0)
         self.pending_growth = 0
@@ -127,7 +133,11 @@ class SnakeGame:
             self.game_over = True
             self.high_score = max(self.high_score, self.score)
             self.audio.play_death()
-            self.effects.emit(self._grid_to_center(self.snake[0]), pygame.Color(255, 120, 90), count=20)
+            self.effects.emit(
+                self._grid_to_center(self.snake[0]),
+                pygame.Color(255, 120, 90),
+                count=20,
+            )
             return
 
         self.snake.insert(0, new_head)
@@ -137,7 +147,11 @@ class SnakeGame:
             self.high_score = max(self.high_score, self.score)
             self.pending_growth += 1
             self.audio.play_eat()
-            self.effects.emit(self._grid_to_center(self.food.grid), pygame.Color(255, 208, 86), count=28)
+            self.effects.emit(
+                self._grid_to_center(self.food.grid),
+                pygame.Color(255, 208, 86),
+                count=28,
+            )
             self.food = Food(self._spawn_food(), 0.0)
         elif self.pending_growth > 0:
             self.pending_growth -= 1
@@ -160,7 +174,9 @@ class SnakeGame:
         overlay = pygame.Surface((self.width, self.height), pygame.SRCALPHA)
         overlay.fill((0, 0, 0, 0))
         for particle in self.background_particles:
-            pygame.draw.circle(overlay, (255, 255, 255, 10), (int(particle.x), int(particle.y)), 1)
+            pygame.draw.circle(
+                overlay, (255, 255, 255, 10), (int(particle.x), int(particle.y)), 1
+            )
         self.screen.blit(overlay, (0, 0))
 
     def _draw_board(self) -> None:
@@ -185,37 +201,69 @@ class SnakeGame:
             color = (125, 229, 143) if index == 0 else (84, 184, 110)
             pygame.draw.rect(self.screen, color, rect, border_radius=6)
             if index == 0:
-                glow = pygame.Surface((self.cell_size + 10, self.cell_size + 10), pygame.SRCALPHA)
-                pygame.draw.circle(glow, (170, 255, 185, 60), (glow.get_width() // 2, glow.get_height() // 2), self.cell_size // 2 + 2)
-                self.screen.blit(glow, (segment.x * self.cell_size - 3, segment.y * self.cell_size - 3))
+                glow = pygame.Surface(
+                    (self.cell_size + 10, self.cell_size + 10), pygame.SRCALPHA
+                )
+                pygame.draw.circle(
+                    glow,
+                    (170, 255, 185, 60),
+                    (glow.get_width() // 2, glow.get_height() // 2),
+                    self.cell_size // 2 + 2,
+                )
+                self.screen.blit(
+                    glow,
+                    (segment.x * self.cell_size - 3, segment.y * self.cell_size - 3),
+                )
 
     def _draw_food(self) -> None:
         center = self._grid_to_center(self.food.grid)
         pulse = 1.0 + 0.08 * (1.0 + math.sin(self.food.pulse * 8.0))
         radius = int(self.cell_size * 0.34 * pulse)
         glow = pygame.Surface((radius * 4, radius * 4), pygame.SRCALPHA)
-        pygame.draw.circle(glow, (255, 188, 74, 90), (radius * 2, radius * 2), radius * 2)
+        pygame.draw.circle(
+            glow, (255, 188, 74, 90), (radius * 2, radius * 2), radius * 2
+        )
         self.screen.blit(glow, (center.x - radius * 2, center.y - radius * 2))
-        pygame.draw.circle(self.screen, (255, 219, 112), (int(center.x), int(center.y)), radius)
+        pygame.draw.circle(
+            self.screen, (255, 219, 112), (int(center.x), int(center.y)), radius
+        )
 
     def _draw_hud(self) -> None:
         hud_rect = pygame.Rect(0, 0, self.width, 72)
         pygame.draw.rect(self.screen, (12, 15, 19), hud_rect)
         title = self.font.render(f"Score {self.score}", True, (242, 245, 248))
         best = self.small_font.render(f"Best {self.high_score}", True, (157, 171, 186))
-        hint = self.small_font.render("Arrows/WASD to move  Space/Enter to restart  Esc to quit", True, (157, 171, 186))
+        hint = self.small_font.render(
+            "Arrows/WASD to move  Space/Enter to restart  Esc to quit",
+            True,
+            (157, 171, 186),
+        )
         self.screen.blit(title, (18, 10))
         self.screen.blit(best, (18, 42))
         self.screen.blit(hint, (180, 26))
 
         if self.game_over:
-            overlay = pygame.Surface((self.width, self.rows * self.cell_size), pygame.SRCALPHA)
+            overlay = pygame.Surface(
+                (self.width, self.rows * self.cell_size), pygame.SRCALPHA
+            )
             overlay.fill((8, 10, 14, 150))
             self.screen.blit(overlay, (0, 0))
             text = self.font.render("Game Over", True, (255, 245, 235))
-            retry = self.small_font.render("Press Space or Enter to restart", True, (255, 220, 190))
-            self.screen.blit(text, text.get_rect(center=(self.width / 2, self.rows * self.cell_size / 2 - 10)))
-            self.screen.blit(retry, retry.get_rect(center=(self.width / 2, self.rows * self.cell_size / 2 + 22)))
+            retry = self.small_font.render(
+                "Press Space or Enter to restart", True, (255, 220, 190)
+            )
+            self.screen.blit(
+                text,
+                text.get_rect(
+                    center=(self.width / 2, self.rows * self.cell_size / 2 - 10)
+                ),
+            )
+            self.screen.blit(
+                retry,
+                retry.get_rect(
+                    center=(self.width / 2, self.rows * self.cell_size / 2 + 22)
+                ),
+            )
 
     def _spawn_food(self) -> pygame.Vector2:
         available = [
