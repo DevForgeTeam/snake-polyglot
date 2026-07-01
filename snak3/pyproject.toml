@@ -1,0 +1,10 @@
+[project]
+name = "snak3"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = ["pygame>=2.5"]
+
+[project.scripts]
+snak3 = "main:main"
